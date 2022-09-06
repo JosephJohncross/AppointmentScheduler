@@ -1,4 +1,22 @@
-﻿
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@inject SignInManager<ApplicationUser> signInManager
+
+@if (signInManager.IsSignedIn(User)){
+    <form id="logoutForm" asp-action="Logoff" asp-controller="Account">
+        <ul class="flex p-3 space-x-6">
+            <li>Hello, @User.Identity.Name</li>
+            <li><a href="javascript:document.getElementById('logoutForm').submt()" class="bg-red-500 p-2 text-white align-center rounded-sm font-bold">Log out</a></li>
+        </ul>
+    </form>
+}
+else{
+    <ul class="flex space-x-3 pr-5">
+        @*<li>@Html.ActionLink("Sign Up", "Register", "Account", routeValues:null, htmlAttributes: new {id = "registerLink"})</li>*@
+        <li>
+            <a class="" id="regiseredLink" asp-controller="Account" asp-action="Register">Sign Up</a>
+        </li>
+        @*<li>@Html.ActionLink("Sign In", "Login", "Account", routeValues:null, htmlAttributes: new {id = "loginLink"})</li>*@
+         <li>
+            <a class="" id="loginLink" asp-controller="Account" asp-action="Login">Sign In</a>
+        </li>
+    </ul>
+}
