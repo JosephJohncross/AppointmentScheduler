@@ -4,7 +4,7 @@
     <form id="logoutForm" asp-action="Logoff" asp-controller="Account">
         <ul class="flex p-3 space-x-6">
             <li>Hello, @User.Identity.Name</li>
-            <li><a href="javascript:document.getElementById('logoutForm').submt()" class="bg-red-500 p-2 text-white align-center rounded-sm font-bold">Log out</a></li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()"  class="bg-red-500 p-2 text-white align-center rounded-sm font-bold">Log out</a></li>
         </ul>
     </form>
 }

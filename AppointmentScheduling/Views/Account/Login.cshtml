@@ -7,8 +7,8 @@
     <p class="my-4">Use your registered email id and password to login</p>
 
     <section id="loginForm">
-        <form class="">
-            <div asp-validation-summary="ModelOnly"></div>
+        <form class="" asp-action="Login" asp-controller="Account">
+            <div asp-validation-summary="ModelOnly" class="text-red-500"></div>
             <div class="">
                 <label class="" asp-for="Email"></label>
                 <div class="">
