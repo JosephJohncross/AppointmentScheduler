@@ -1,41 +1,44 @@
 ﻿@model AppointmentScheduling.Models.ViewModels.LoginViewModel
 
 
-<h2>Sign In</h2>
+<h2 class="text-2xl">Sign In</h2>
 
 <div class="">
-    <p class="">Use your registered email id and password to login</p>
+    <p class="my-4">Use your registered email id and password to login</p>
 
     <section id="loginForm">
         <form class="">
-            <h4>Use your registered email id and password to login</h4>
-            <div asp-validation-summary="All"></div>
+            <div asp-validation-summary="ModelOnly"></div>
             <div class="">
                 <label class="" asp-for="Email"></label>
                 <div class="">
-                    <input type="email" asp-for="Email"/>
-                    <span class="" asp-validation-for="Email"></span>
+                    <input type="email" asp-for="Email" class="border-1 border-slate-500"/>
+                    <span class="text-red-500" asp-validation-for="Email"></span>
                 </div>
             </div>
             <div class="">
                 <label class="" asp-for="Password"></label>
                 <div class="">
-                    <input type="password" asp-for="Password"/>
-                    <span class="" asp-validation-for="Password"></span>
+                    <input type="password" asp-for="Password" class="border-1 border-slate-500"/>
+                    <span class="text-red-500" asp-validation-for="Password"></span>
                 </div>
             </div>
             <div class="">
                 <label class="" asp-for="RememberMe">
-                    <input type="checkbox" asp-for="RememberMe"/>
+                    <input type="checkbox" asp-for="RememberMe" class="border-1 border-slate-500"/>
                 </label>
                 Remember Me?
             </div>
-            <div class="bg-green-500">
-                <input type="submit" value="Log in"/>
+            <div class="bg-green-500 text-white p-2 max-w-max">
+                <input type="submit" value="Log in" />
             </div>
-            <p class="">
+            <p class="text-blue-500">
                 <a asp-action="Register">Sign Up</a>
             </p>
         </form>
     </section>
 </div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"/>
+}

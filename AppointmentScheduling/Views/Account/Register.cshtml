@@ -1,0 +1,53 @@
+﻿@model AppointmentScheduling.Models.ViewModels.RegisterViewModel
+
+<h2 class="text-2xl">Sign Up</h2>
+
+<form method="post" asp-action="Register" asp-controller="Account">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="">
+        <label class="" asp-for="Name"></label>
+        <div class="">
+            <input type="text" asp-for="Name" class="border-1 border-slate-500"/>
+            <span class="text-red-500" asp-validation-for="Name"></span>
+        </div>
+    </div>
+    <div class="">
+        <label class="" asp-for="Email"></label>
+        <div class="">
+            <input type="text" asp-for="Email" class="border-1 border-slate-500"/>
+            <span class="text-red-500" asp-validation-for="Email"></span>
+        </div>
+    </div>
+    <div class="">
+        <label class="" asp-for="Password"></label>
+        <div class="">
+            <input type="text" asp-for="Password" class="border-1 border-slate-500"/>
+            <span class="text-red-500" asp-validation-for="Password"></span>
+        </div>
+    </div>
+    <div class="">
+        <label class="" asp-for="ConfirmPassword"></label>
+        <div class="">
+            <input type="text" asp-for="ConfirmPassword" class="border-1 border-slate-500"/>
+            <span class="text-red-500" asp-validation-for="ConfirmPassword"></span>
+        </div>
+    </div>
+    <div class="">
+        <label class="" asp-for="RoleName"></label>
+        <div class="">
+            <select type="text" asp-for="RoleName" asp-items="@AppointmentScheduling.Utility.Helper.GetRolesForDropDown()" class="border-1 border-slate-500">
+            </select>
+            <span class="text-red-500" asp-validation-for="RoleName"></span>
+        </div>
+    </div>
+    <div class="bg-green-500 text-white p-2 max-w-max mt-3">
+        <input type="submit" value="Register"/>
+    </div>
+    <p class="text-blue-500">
+        <a asp-action="Login">Sign In</a>
+    </p>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}
