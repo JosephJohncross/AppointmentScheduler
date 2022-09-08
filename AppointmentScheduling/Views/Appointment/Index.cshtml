@@ -1,0 +1,11 @@
+﻿<div class="">
+    <div class="">
+        @if (User.IsInRole(Helper.Admin))
+        {
+            <div id="divDoctorList">
+                <label class="">Select Doctor</label>
+                @Html.DropDownList("doctorId", new SelectList(ViewBag.DoctorList, "Id", "Name"), new {@class="border-1"})
+            </div>
+        }
+    </div>
+</div>
