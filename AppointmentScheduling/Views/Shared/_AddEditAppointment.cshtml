@@ -9,7 +9,7 @@
       <div id="modal" class="fixed inset-0 z-10 ">
         <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <div class="relative overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-            <form class="" id="appoinmentForm">
+            <form class="" id="appointmentForm">
                 <div id="modal-header" class="bg-white px-4 pt-5 pb-6 sm:p-6 sm:pb-10">
                     <h4 class="text-xl text-center text-green-500 font-bold mb-4 ">Add/Edit Appointment</h4>
                     <div id="modal-body" class=" flex flex-col space-y-4">
@@ -24,6 +24,15 @@
                         <div class="flex align-center space-x-4">
                             <label for="patients" class="mb-2 font-bold">Patients</label>
                             <select id="patients" class="border-1 border-gray-500" asp-items="@(new SelectList(ViewBag.PatientList, "Id", "Name"))"></select>
+                        </div>
+                        <div class="flex align-center space-x-4">
+                            <label for="patients" class="mb-2 font-bold">Duration</label>
+                            <select id="patients" class="border-1 border-gray-500" asp-items="@ViewBag.Duration"></select>
+                        </div>
+                        <input type="hidden" id="id"/>
+                         <div class="flex justify-end space-x-4">
+                            <button type="button" id="modal-close" class="text-center text-white font-bold bg-red-500 px-6 py-2 " onClick="(onCloseForm())">Close</button>
+                            <button type="button" id="modal-submit" class="modal-submit text-center text-white font-bold bg-green-500 px-6 py-2" onClick="onSubmitForm();">Submit</button>
                         </div>
                     </div>
                 </div>

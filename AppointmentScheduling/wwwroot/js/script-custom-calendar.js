@@ -21,11 +21,12 @@
 //}
 
 document.addEventListener('DOMContentLoaded', function () {
-    var calendarEl = document.getElementById('calendar');
 
     try {
+        var calendarEl = document.getElementById('calendar');
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+        if (calendarEl !== null) {
+            var calendar = new FullCalendar.Calendar(calendarEl, {
             timezone: false,
             initialView: 'dayGridMonth',
             headerToolbar: {
@@ -39,20 +40,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 onShowModal(event, null)
             }
         })
-        calendar.render();
+            calendar.render();
+        }
     }
     catch (e) {
-        console.log(e);
+        alert(e);
     }
 })
 
+var modalClose = document.getElementById('modal-close');
+var appointmentInput = document.getElementById('appointmentInput');
+
 function onShowModal(obj, isEventDetail) {
-    var modal = document.getElementById('modal');
-    var appointmentInput = document.getElementById('appointmentInput');
     appointmentInput.style.display = "block";
-    var backdrop = document.getElementById('backdrop');
-    modal.style.display = "block"
-    backdrop.classList.add('animate-backdropIn')
-    modal.classList.add('animate-modalIn')
+}
+
+function onCloseForm() {
+    appointmentInput.style.display = "none";
 }
 

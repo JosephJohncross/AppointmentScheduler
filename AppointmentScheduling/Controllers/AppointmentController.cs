@@ -14,6 +14,7 @@ namespace AppointmentScheduling.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Duration =  Helper.GetTimeDropDown(); 
             ViewBag.DoctorList =  _appointmentService.GetDoctorList();
             ViewBag.PatientList =  _appointmentService.GetPatientList();
             return View();
