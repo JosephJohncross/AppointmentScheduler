@@ -34,6 +34,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 var modalClose = document.getElementById('modal-close');
 var appointmentInput = document.getElementById('appointmentInput');
+var title = document.getElementById("title");
+var appointmentDate = document.getElementById("appointmentDate");
 
 function onShowModal(obj, isEventDetail) {
     appointmentInput.style.display = "block";
@@ -42,37 +44,86 @@ function onShowModal(obj, isEventDetail) {
 function onCloseForm() {
     appointmentInput.style.display = "none";
 }
-async function onSubmitForm() {
-    var requestData = {
-        Id: +(document.getElementById("Id")),
+function onSubmitForm() {
+
+    if (checkValidation()) {
+        var requestData = {
+        Id: parseInt($("#id").val()) + 1,
         Title: $("#title").val(),
         Description: $("#description").val(),
         StartDate: $("#appointmentDate").val(),
         Duration: $("#duration").val(),
         DoctorId: $("#doctorId").val(),
-        PatientId: $("#patients").val(),
+        PatientId: $("#patientId").val(),
+        //AdminId: "1",
+        //EndDate: Date.now().toString(),
+        //AdminName: "asasa",
+        //DoctorName: "sdsds",
+        //PatientName: "ssa"
     }
 
-   var appointmentData =  await fetch(`${routeURL} + /api/Appointment/SaveCalendarData`, {
-        method: "POST",
-        body: JSON.stringify(requestData),
-        headers: {
-            "Content-Type": "application/json;charset=utf-8"
-        }
-        
-   })
-    appointmentData.then(response => {
-        if (response.status == 1) {
-            $.notify(response.message, "success");
-            if (appointmentInput.style.display !== "none") {
-                onCloseForm();
+        //var appointmentData =  await fetch(`${routeURL}/api/Appointment/SaveCalendarData`, {
+   //     method: "POST",
+   //     body: JSON.stringify(requestData),
+   //     headers: {
+   //         "Content-Type": "application/json;charset=utf-8"
+   //     }
+   //}).then(response => {
+   //    if (response.status == 1) {
+   //    console.log("success")
+   //       /* $.notify(response.message, "success");*/
+   //        if (appointmentInput.style.display !== "none") {
+   //            onCloseForm();
+   //        }
+   //    }
+   //    else {
+   //        //$.notify(response.message, "error")
+   //    }
+   //}, error => {
+   //    console.log("failure")
+   //    $.notify(response.message, "error")
+   //})
+        $.ajax({
+        url: `${routeURL}/api/Appointment/SaveCalendarData`,     
+        type: 'POST',
+        data: JSON.stringify(requestData),
+        contentType: 'application/json',
+        success: function (response) {
+            if (response.status === 1 || response.status === 2) {
+                $.notify(response.message, 'success');
+                if (appointmentInput.style.display !== 'none') {
+                    onCloseForm();
+                }
             }
+            else {
+                $.notify(response.message, 'error')
+            }
+        },
+        error: function (xhr) {
+            $.notify('Error', 'error');
         }
-        else {
-            $.notify(response.message, "error")
-        }
-    }, error => {
-        $.notify(response.message, "error")
     })
+    }
+}
+
+function checkValidation() {
+    var isValid = true;
+
+    if (appointmentDate.value === undefined || appointmentDate.value === "") {
+        isValid = false
+        appointmentDate.style.borderColor = "red";
+    }
+    else {
+        appointmentDate.style.borderColor = "rgba(107 114 128, 0.5)";
+    }
+    if (title.value === undefined || title.value === "") {
+        isValid = false
+        title.style.borderColor = "red";
+    }
+    else {
+        title.style.borderColor = "rgba(107 114 128, 0.5)";
+    }
+
+    return isValid;
 }
 

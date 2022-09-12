@@ -4,8 +4,8 @@ using System.Security.Claims;
 
 namespace AppointmentScheduling.Controllers.Api
 {
-    [Route("api/Appointment")]
     [ApiController]
+    [Route("api")]
     public class AppointmentApiController : Controller
     {
         private readonly IAppointmentService _appointmentService;
@@ -22,7 +22,7 @@ namespace AppointmentScheduling.Controllers.Api
         }
 
         [HttpPost]
-        [Route("SaveCalendarData")]
+        [Route("Appointment/SaveCalendarData")]
         public IActionResult SaveCalendarData(AppointmentVM data)
         {
             CommonResponse<int> commonResponse = new CommonResponse<int>();
@@ -45,6 +45,13 @@ namespace AppointmentScheduling.Controllers.Api
             }
 
             return Ok(commonResponse); 
+        }
+
+        [Route("Appointment")]
+        [Route("Appointment/Index")]
+        public IActionResult Index()
+        {
+            return View();
         }
     }
 }

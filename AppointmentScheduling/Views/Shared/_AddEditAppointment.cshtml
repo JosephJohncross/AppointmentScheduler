@@ -27,7 +27,7 @@
                         </div>
                         <div class="flex align-center space-x-4">
                             <label for="patients" class="mb-2 font-bold">Select Patients</label>
-                            <select id="patients" class="border-1 border-gray-500" asp-items="@(new SelectList(ViewBag.PatientList, "Id", "Name"))"></select>
+                            <select id="patientId" class="border-1 border-gray-500" asp-items="@(new SelectList(ViewBag.PatientList, "Id", "Name"))"></select>
                         </div>
                         <div class="flex align-center space-x-4">
                             <label for="patients" class="mb-2 font-bold">Duration</label>

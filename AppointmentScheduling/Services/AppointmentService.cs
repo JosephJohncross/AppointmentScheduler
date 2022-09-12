@@ -37,9 +37,19 @@ namespace AppointmentScheduling.Services
                     AdminId = model.AdminId,
                 };
 
-                _db.Appointments.Add(appointment);
-                await _db.SaveChangesAsync();
-                return 2;
+                try
+                {
+                    _db.Appointments.Add(appointment);
+                    await _db.SaveChangesAsync();
+                    return 2;
+                }
+                catch (Exception e)
+                {
+                    String innerMessage = (e.InnerException != null)
+                      ? e.InnerException.Message
+                      : "";
+                    throw new Exception(innerMessage);
+                }
             }
 
         }
