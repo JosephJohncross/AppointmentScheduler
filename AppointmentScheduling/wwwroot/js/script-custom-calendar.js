@@ -11,19 +11,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (calendarEl !== null) {
             var calendar = new FullCalendar.Calendar(calendarEl, {
-            timezone: false,
-            initialView: 'dayGridMonth',
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
-            },
-            selectable: true,
-            editable: false,
-            select: function (event) {
-                onShowModal(event, null)
-            }
-        })
+                timezone: false,
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                selectable: true,
+                editable: false,
+                select: function (event) {
+                    onShowModal(event, null)
+                },
+                eventDisplay:'block',
+                events: function (fetchInfo, successCallback, failureCallback) {
+                    $.ajax({
+                        url: `${routeURL}/api/Appointment/GetCalendarData?doctorId=` + $("#doctorId").val(),
+                        type: 'GET',
+                        dataType: 'JSON',
+                        success: function (response) {
+                            var events = [];
+                            if (response.status === 1) {
+                                $.each(response.dataenum, function (i, data) {
+                                    events.push({
+                                        title: data.title,
+                                        description: data.description,
+                                        start: data.startDate,
+                                        end: data.endDate,
+                                        backgroundColor: data.isDoctorApproved ? "#28a745" : "#dc3545",
+                                        //borderColor: "#162466",
+                                        textColor: "white",
+                                        //boxShadow: '0px 0px 2px rgba(0,0,0,0.3)',
+                                        id: data.id
+                                    })
+                                })
+                            }
+                            console.log(events);
+                            successCallback(events);
+                        },
+                        error: function (xhr) {
+                            $.notify('Error', 'error');
+                        }
+                    })
+                },
+            })
             calendar.render();
         }
     }

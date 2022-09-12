@@ -47,11 +47,40 @@ namespace AppointmentScheduling.Controllers.Api
             return Ok(commonResponse); 
         }
 
-        [Route("Appointment")]
-        [Route("Appointment/Index")]
-        public IActionResult Index()
+        [HttpGet]
+        [Route("Appointment/GetCalendarData")]
+
+        public IActionResult GetCalendarData(string doctorId)
         {
-            return View();
+            CommonResponse<List<AppointmentVM>> commonResponse = new CommonResponse<List<AppointmentVM>>();
+            try
+            {
+                if (role == Helper.Patient)
+                {
+                    commonResponse.dataenum = _appointmentService.PatientsEventById(loginUserId);
+                    commonResponse.status = Helper.success_code;
+                }
+                else if (role == Helper.Doctor)
+                {
+                    commonResponse.dataenum = _appointmentService.DoctorEventById(loginUserId);
+                    commonResponse.status = Helper.success_code;
+
+                }
+                else
+                {
+                    commonResponse.dataenum = _appointmentService.DoctorEventById(doctorId);
+                    commonResponse.status = Helper.success_code;
+
+                }
+            }
+            catch(Exception ex)
+            {
+                commonResponse.message = ex.Message;
+                commonResponse.status = Helper.failure_code;
+                throw new Exception(ex.Message);
+            }
+
+            return Ok(commonResponse);
         }
     }
 }

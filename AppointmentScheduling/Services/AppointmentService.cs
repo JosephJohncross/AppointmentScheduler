@@ -54,6 +54,20 @@ namespace AppointmentScheduling.Services
 
         }
 
+        public List<AppointmentVM> DoctorEventById(string doctorId)
+        {
+            return _db.Appointments.Where(x => x.DoctorId == doctorId).ToList().Select(c => new AppointmentVM
+            {
+                Id = c.Id,
+                Description = c.Description,
+                StartDate = c.StartDate?.ToString("yyyy-MM-dd HH:mm:ss"),
+                EndDate = c.EndDate?.ToString("yyyy-MM-dd HH:mm:ss"),
+                Title = c.Title,
+                Duration = c.Duration,
+                isDoctorApproved = c.isDoctorApproved
+            }).ToList();    
+        }
+
         public List<DoctorVM> GetDoctorList()
         {
             var doctors = (from user in _db.Users
@@ -82,6 +96,19 @@ namespace AppointmentScheduling.Services
                            ).ToList();
 
             return patient;
+        }
+
+        public List<AppointmentVM> PatientsEventById(string patientId)
+        {
+             return _db.Appointments.Where(x => x.PatientId == patientId).ToList().Select(c => new AppointmentVM
+            {
+                Id = c.Id,
+                Description = c.Description,
+                StartDate = c.StartDate?.ToString("yyyy-MM-dd HH:mm:ss"),
+                EndDate = c.EndDate?.ToString("yyyy-MM-dd HH:mm:ss"),
+                Duration = c.Duration,
+                isDoctorApproved = c.isDoctorApproved
+            }).ToList();    
         }
     }
 }
