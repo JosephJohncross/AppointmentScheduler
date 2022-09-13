@@ -49,7 +49,6 @@ namespace AppointmentScheduling.Controllers.Api
 
         [HttpGet]
         [Route("Appointment/GetCalendarData")]
-
         public IActionResult GetCalendarData(string doctorId)
         {
             CommonResponse<List<AppointmentVM>> commonResponse = new CommonResponse<List<AppointmentVM>>();
@@ -74,6 +73,80 @@ namespace AppointmentScheduling.Controllers.Api
                 }
             }
             catch(Exception ex)
+            {
+                commonResponse.message = ex.Message;
+                commonResponse.status = Helper.failure_code;
+                throw new Exception(ex.Message);
+            }
+
+            return Ok(commonResponse);
+        }
+
+        [HttpGet]
+        [Route("Appointment/GetCalendarDataById/{id}")]
+        public IActionResult GetCalendarDataById(int id)
+        {
+            CommonResponse<AppointmentVM> commonResponse = new CommonResponse<AppointmentVM>();
+            try
+            {
+                
+                    commonResponse.dataenum = _appointmentService.GetById(id);
+                    commonResponse.status = Helper.success_code;
+
+            }
+            catch (Exception ex)
+            {
+                commonResponse.message = ex.Message;
+                commonResponse.status = Helper.failure_code;
+                throw new Exception(ex.Message);
+            }
+
+            return Ok(commonResponse);
+        }
+
+        [HttpGet]
+        [Route("Appointment/DeleteAppointment/{id}")]
+        public async Task<IActionResult> DeleteAppointment(int id)
+        {
+            CommonResponse<int> commonResponse = new CommonResponse<int>();
+            try
+            {
+
+                commonResponse.status = await _appointmentService.DeleteEvent(id);
+                commonResponse.message = commonResponse.status == 1? Helper.appointmentDeleted: Helper.somethingWentWrong;
+
+            }
+            catch (Exception ex)
+            {
+                commonResponse.message = ex.Message;
+                commonResponse.status = Helper.failure_code;
+                throw new Exception(ex.Message);
+            }
+
+            return Ok(commonResponse);
+        }
+
+        [HttpGet]
+        [Route("Appointment/ConfirmAppointment/{id}")]
+        public async Task<IActionResult> ConfirmAppointment(int id)
+        {
+            CommonResponse<int> commonResponse = new CommonResponse<int>();
+            try
+            {
+                var result = _appointmentService.ConfirmEvent(id).Result;
+                if (result > 0)
+                {
+                    commonResponse.status = Helper.success_code;
+                    commonResponse.message = Helper.meetingConfirmed;
+                }
+                else
+                {
+                    commonResponse.status = Helper.failure_code;
+                    commonResponse.message = Helper.meetingConfirmedError; 
+                }
+
+            }
+            catch (Exception ex)
             {
                 commonResponse.message = ex.Message;
                 commonResponse.status = Helper.failure_code;

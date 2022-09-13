@@ -1,5 +1,6 @@
-﻿var routeURL = location.protocol+"//"+location.host
-
+﻿
+var routeURL = location.protocol+"//"+location.host
+var calendar;
 document.addEventListener('DOMContentLoaded', function () {
     $("#appointmentDate").kendoDateTimePicker({
         value: new Date(),
@@ -7,10 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     try {
-        var calendarEl = document.getElementById('calendar');
 
+        var calendarEl = document.getElementById('calendar');
         if (calendarEl !== null) {
-            var calendar = new FullCalendar.Calendar(calendarEl, {
+            calendar = new FullCalendar.Calendar(calendarEl, {
                 timezone: false,
                 initialView: 'dayGridMonth',
                 headerToolbar: {
@@ -46,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                     })
                                 })
                             }
-                            console.log(events);
                             successCallback(events);
                         },
                         error: function (xhr) {
@@ -54,6 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     })
                 },
+                eventClick: function (info) {
+                    getEventDetailsByEventId(info.event);
+                }
             })
             calendar.render();
         }
@@ -69,10 +72,40 @@ var title = document.getElementById("title");
 var appointmentDate = document.getElementById("appointmentDate");
 
 function onShowModal(obj, isEventDetail) {
+    if (isEventDetail != null) {
+        console.log(obj);
+        $("#title").val(obj.title)
+        $("#description").val(obj.description)
+        $("#duration").val(obj.duration)
+        $("#doctorId").val(obj.doctorId)
+        $("#lblPatientName").html(obj.patientName)
+        $("#lblDoctorName").html(obj.doctorName)
+        $("#patientId").val(obj.patientId)
+        $("#appointmentDate").val(obj.startDate)
+        $("#id").val(obj.id)
+        if (obj.isDoctorApproved) {
+            $("#lblStatus").html("Approved")
+        }
+        else {
+            $("#lblStatus").html("Pending")
+        }
+    }
+    else {
+        $("#appointmentDate").val(obj.startStr + " " + new moment().format("hh:mm A "))
+    }
     appointmentInput.style.display = "block";
 }
 
 function onCloseForm() {
+    $("#appointmentForm")[0].reset();
+    $("#title").val("")
+    $("#description").val("")
+    $("#duration").val("")
+    $("#patientId").val("")
+    $("#appointmentDate").val("")
+    $("#lblPatientName").html("")
+    $("#lblDoctorName").html("")
+    $("#id").val("")
     appointmentInput.style.display = "none";
 }
 function onSubmitForm() {
@@ -121,6 +154,7 @@ function onSubmitForm() {
         contentType: 'application/json',
         success: function (response) {
             if (response.status === 1 || response.status === 2) {
+                calendar.refetchEvents()
                 $.notify(response.message, 'success');
                 if (appointmentInput.style.display !== 'none') {
                     onCloseForm();
@@ -158,3 +192,66 @@ function checkValidation() {
     return isValid;
 }
 
+function getEventDetailsByEventId(info) {
+    $.ajax({
+        url: `${routeURL}/api/Appointment/GetCalendarDataById/` + info.id,
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (response) {
+            if (response.status === 1 && response.dataenum != undefined) {
+                onShowModal(response.dataenum, true)
+            }
+        },
+        error: function (xhr) {
+            $.notify('Error', 'error');
+        }
+    })
+}
+
+function onDoctorChange() {
+    calendar.refetchEvents();
+}
+
+function onDeleteAppointment() {
+    var id = +($("#id").val())
+    $.ajax({
+        url: `${routeURL}/api/Appointment/DeleteAppointment/` + id,
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (response) {
+            if (response.status === 1) {
+                $.notify(response.message, "success")
+                calendar.refetchEvents();
+                onCloseForm();
+            }
+            else {
+                $.notify(response.message, "error")
+            }
+        },
+        error: function (xhr) {
+            $.notify('Error', 'error');
+        }
+    })
+}
+
+function onConfirm() {
+    var id = +($("#id").val())
+    $.ajax({
+        url: `${routeURL}/api/Appointment/ConfirmAppointment/` + id,
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (response) {
+            if (response.status === 1) {
+                $.notify(response.message, "success")
+                calendar.refetchEvents();
+                onCloseForm();
+            }
+            else {
+                $.notify(response.message, "error")
+            }
+        },
+        error: function (xhr) {
+            $.notify('Error', 'error');
+        }
+    })
+}

@@ -4,7 +4,7 @@
         {
             <div id="divDoctorList" class="mb-5">
                 <label class="">Select Doctor</label>
-                @Html.DropDownList("doctorId", new SelectList(ViewBag.DoctorList, "Id", "Name"), new {@class="border-1"})
+                @Html.DropDownList("doctorId", new SelectList(ViewBag.DoctorList, "Id", "Name"), new {@class="border-1", @onchange= "onDoctorChange()"})
             </div>
         }
         <div id="calendar" class=""></div>

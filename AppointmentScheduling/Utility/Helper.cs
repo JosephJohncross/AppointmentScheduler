@@ -8,6 +8,8 @@ namespace AppointmentScheduling.Utility
         public static string Patient = "Patient";
         public static string Doctor = "Doctor";
         public static string appointmentAdded = "Appointment added successfully";
+        public static string meetingConfirmed = "Meeting has been confirmed";
+        public static string meetingConfirmedError = "Meeting could not be confirmed";
         public static string appointmentUpdated = "Appointment updated successfully";
         public static string appointmentDeleted = "Appointment deleted successfully";
         public static string appointmentExists = "Appointment for selected date and time already exists";

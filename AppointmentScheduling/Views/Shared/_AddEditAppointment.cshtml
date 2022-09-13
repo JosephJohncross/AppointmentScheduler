@@ -11,32 +11,79 @@
           <div class="relative overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
             <form class="" id="appointmentForm">
                 <div id="modal-header" class="bg-white px-4 pt-5 pb-6 sm:p-6 sm:pb-10">
-                    <h4 class="text-xl text-center text-green-500 font-bold mb-4 ">Add/Edit Appointment</h4>
-                    <div id="modal-body" class=" flex flex-col space-y-4">
+                            @if (User.IsInRole(Helper.Admin))
+                            {
+                                <h4 class="text-xl text-center text-green-500 font-bold mb-4 ">Add/Edit Appointment</h4>
+
+                            }
+                            else
+                            {
+                                <h4 class="text-xl text-center text-green-500 font-bold mb-4 ">Appointment Details</h4>
+                            }
+                            <div id="modal-body" class=" flex flex-col space-y-4">
                         <div class="flex flex-col">
                             <label for="title" class="mb-2 font-bold">Title</label>
                             <input type="text" maxlength="100" class="border-1 border-gray-500 p-2 md:p-5" id="title"/>
                         </div>
                         <div class="">
                             <label for="title" class="mb-2 font-bold">Description</label>
-                            <textarea type="text" class="border-1 border-gray-500 resize-none w-full h-40 p-2 md:p-5" id="description"></textarea>
+                            <textarea type="text" class="border-1 border-gray-500 resize-none w-full h-38 p-2 md:p-5" id="description"></textarea>
                         </div>
                          <div class="flex align-center space-x-4">
                             <label for="appointmentDate" class="mb-2 font-bold">Start Date Time</label>
                             <input class="text" id="appointmentDate"/>
                         </div>
-                        <div class="flex align-center space-x-4">
-                            <label for="patients" class="mb-2 font-bold">Select Patients</label>
-                            <select id="patientId" class="border-1 border-gray-500" asp-items="@(new SelectList(ViewBag.PatientList, "Id", "Name"))"></select>
-                        </div>
-                        <div class="flex align-center space-x-4">
+                                @if (User.IsInRole(Helper.Admin))
+                                {
+                                    <div class="flex align-center space-x-4">
+                                        <label for="patients" class="mb-2 font-bold">Select Patients</label>
+                                        <select id="patientId" class="border-1 border-gray-500" asp-items="@(new SelectList(ViewBag.PatientList, "Id", "Name"))"></select>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    @if (User.IsInRole(Helper.Doctor)){
+                                         <div class="flex align-center space-x-4">
+                                            <label for="lblPatientName" class="mb-2 font-bold">Patient Name</label>
+                                            <label class="border-1 border-gray-500 p-2 md:p-5 w-full h-10" id="lblPatientName" disabled></label>
+                                        </div>
+                                        <div class="flex align-center space-x-4">
+                                            <label for="lblStatus" class="mb-2 font-bold">Status</label>
+                                            <label class="border-1 border-gray-500 p-2 md:p-5 w-full h-10" id="lblStatus" disabled></label>
+                                        </div>
+                                    }
+                                     @if (User.IsInRole(Helper.Patient)){
+                                         <div class="flex align-center space-x-4">
+                                            <label for="lblDoctorName" class="mb-2 font-bold">Doctor Name</label>
+                                            <label class="border-1 border-gray-500 p-2 md:p-5 w-full h-10" id="lblDoctorName" disabled></label>
+                                        </div>
+                                        <div class="flex align-center space-x-4">
+                                            <label for="lblStatus" class="mb-2 font-bold">Status</label>
+                                            <label class="border-1 border-gray-500 p-2 md:p-5 w-full h-1    0" id="lblStatus" disabled></label>
+                                        </div>
+                                    }
+                                }
+                                <div class="flex align-center space-x-4">
                             <label for="patients" class="mb-2 font-bold">Duration</label>
                             <select id="duration" class="border-1 border-gray-500" asp-items="@ViewBag.Duration"></select>
                         </div>
                         <input type="hidden" id="id"/>
                          <div class="flex justify-end space-x-4">
-                            <button type="button" id="modal-close" class="text-center text-white rounded-pill font-bold bg-red-500 px-6 py-2 " onClick="(onCloseForm())">Close</button>
-                            <button type="button" id="modal-submit" class="modal-submit text-center text-white rounded-pill font-bold bg-green-500 px-6 py-2" onClick="onSubmitForm();">Submit</button>
+                            <button type="button" id="modal-close" class="text-center text-white rounded-pill font-bold bg-amber-300 px-6 py-2 " onClick="(onCloseForm())">Close</button>
+
+                                    @if (User.IsInRole(Helper.Admin))
+                                    {
+                                        <button type="button" id="modal-submit" class="modal-submit text-center text-white rounded-pill font-bold bg-green-500 px-6 py-2" onClick="onSubmitForm();">Submit</button> 
+                                        <button type="button" id="modal-delete" class="text-center text-white rounded-pill font-bold bg-red-500 px-6 py-2" onClick="onDeleteAppointment();">Delete</button> 
+                                        
+                                    }
+                                     @if (User.IsInRole(Helper.Doctor))
+                                    { 
+                                        <button type="button" id="modal-confirm" class="modal-submit text-center text-white rounded-pill font-bold bg-green-500 px-6 py-2" onClick="onConfirm();">Confirm</button> 
+                                        <button type="button" id="modal-delete" class="text-center text-white rounded-pill font-bold bg-red-500 px-6 py-2" onClick="onDeleteAppointment();">Delete</button> 
+                                        
+                                    }
                         </div>
                     </div>
                 </div>
