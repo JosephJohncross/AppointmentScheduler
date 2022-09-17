@@ -85,13 +85,22 @@ function onShowModal(obj, isEventDetail) {
         $("#id").val(obj.id)
         if (obj.isDoctorApproved) {
             $("#lblStatus").html("Approved")
+            $("#modal-confirm").addClass("hidden")
+            $("#modal-submit").addClass("hidden")
         }
         else {
             $("#lblStatus").html("Pending")
+            $("#modal-submit").removeClass("hidden")
+            $("#modal-confirm").removeClass("hidden")
         }
+        $("#modal-delete").removeClass("hidden")
     }
     else {
         $("#appointmentDate").val(obj.startStr + " " + new moment().format("hh:mm A "))
+        $("#modal-delete").addClass("hidden")
+        $("#modal-submit").removeClass("hidden")
+
+
     }
     appointmentInput.style.display = "block";
 }
@@ -100,8 +109,7 @@ function onCloseForm() {
     $("#appointmentForm")[0].reset();
     $("#title").val("")
     $("#description").val("")
-    $("#duration").val("")
-    $("#patientId").val("")
+   
     $("#appointmentDate").val("")
     $("#lblPatientName").html("")
     $("#lblDoctorName").html("")

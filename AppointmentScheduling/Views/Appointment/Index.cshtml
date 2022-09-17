@@ -1,4 +1,15 @@
 ﻿<div class="">
+
+    @if (TempData.ContainsKey("newAdminSignUp"))
+    {
+        <div class="container">
+            <div class="alert alert-success aler-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+                <strong>Account cretated for @TempData["newAdminSignUp"].ToString()</strong>
+            </div>
+        </div>
+    }
+
     <div class="md: px-4">
         @if (User.IsInRole(Helper.Admin))
         {

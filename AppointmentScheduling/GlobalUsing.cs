@@ -6,3 +6,4 @@ global using System.ComponentModel.DataAnnotations;
 global using Microsoft.AspNetCore.Identity;
 global using AppointmentScheduling.Services;
 global using AppointmentScheduling.Utility;
+global using Microsoft.AspNetCore.Identity.UI.Services;

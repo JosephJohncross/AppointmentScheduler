@@ -1,5 +1,7 @@
 
 var builder = WebApplication.CreateBuilder(args);
+var emailApiKey = builder.Configuration["EmailApiKey"];
+var emailSKey = builder.Configuration["SKey"];
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -11,6 +13,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFramework
 builder.Services.AddTransient<IAppointmentService, AppointmentService>();
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
