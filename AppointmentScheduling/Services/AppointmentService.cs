@@ -15,6 +15,7 @@ namespace AppointmentScheduling.Services
 
         public async Task<int> AddUpdate(AppointmentVM model)
         {
+                var vm = model;
             var startDate = DateTime.Parse(model.StartDate);
             var endDate = DateTime.Parse(model.StartDate).AddMinutes(Convert.ToDouble(model.Duration));
 
@@ -24,7 +25,28 @@ namespace AppointmentScheduling.Services
             if (model != null && model.Id > 0)
             {
                 //update
-                return 1;
+                try
+                {
+                    var appointment = _db.Appointments.FirstOrDefault(x => x.Id == model.Id.GetValueOrDefault());
+                    appointment.Title = model.Title;
+                    appointment.Description = model.Description;
+                    appointment.StartDate = startDate;
+                    appointment.EndDate = endDate;
+                    appointment.Duration = model.Duration;
+                    appointment.DoctorId = model.DoctorId;
+                    appointment.PatientId = model.PatientId;
+                    appointment.isDoctorApproved = false;
+                    appointment.AdminId = model.AdminId;
+                    await _db.SaveChangesAsync();
+                    return 1;
+                }
+                catch(Exception e)
+                {
+                    String innerMessage = (e.InnerException != null)
+                      ? e.InnerException.Message
+                      : "";
+                    throw new Exception(innerMessage);
+                }
             }
             else
             {

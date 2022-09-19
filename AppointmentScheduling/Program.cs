@@ -14,7 +14,7 @@ builder.Services.AddTransient<IAppointmentService, AppointmentService>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
-
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,7 +32,11 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+using(var scope = app.Services.CreateScope())
+{
+    var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+    dbInitializer.Initialize();
+}
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

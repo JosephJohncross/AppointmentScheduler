@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                         //boxShadow: '0px 0px 2px rgba(0,0,0,0.3)',
                                         id: data.id
                                     })
-                                })
+                                })  
                             }
                             successCallback(events);
                         },
@@ -55,6 +55,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     })
                 },
                 eventClick: function (info) {
+                    console.log("Test true")
+                    console.log(info)
                     getEventDetailsByEventId(info.event);
                 }
             })
@@ -73,7 +75,6 @@ var appointmentDate = document.getElementById("appointmentDate");
 
 function onShowModal(obj, isEventDetail) {
     if (isEventDetail != null) {
-        console.log(obj);
         $("#title").val(obj.title)
         $("#description").val(obj.description)
         $("#duration").val(obj.duration)
@@ -120,7 +121,7 @@ function onSubmitForm() {
 
     if (checkValidation()) {
         var requestData = {
-        Id: parseInt($("#id").val()) + 1,
+        Id: parseInt($("#id").val()),
         Title: $("#title").val(),
         Description: $("#description").val(),
         StartDate: $("#appointmentDate").val(),
