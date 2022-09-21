@@ -1,8 +1,8 @@
 ﻿@inject SignInManager<ApplicationUser> signInManager
 
 @if (signInManager.IsSignedIn(User)){
-    <form id="logoutForm" asp-action="Logoff" asp-controller="Account" class="w-full">
-        <ul class="flex p-3 justify-between ">
+    <form id="logoutForm" asp-action="Logoff" asp-controller="Account" class="w-full font-mont">
+        <ul class="flex p-3 justify-between space-x-4 ">
             <li>Hello,
                 <span class="font-bold">@Convert.ToString(@User.Identity.Name)</span>
             </li>
@@ -10,25 +10,25 @@
                 @if (User.IsInRole(Helper.Admin))
                 {
                     <span>
-                        <a asp-controller="Account" asp-action="Register"  class="bg-sky-500 hover:bg-sky-300 p-2 text-white align-center rounded-sm font-bold">Create Admin</a>
+                        <a asp-controller="Account" asp-action="Register"  class="rounded-full md:px-6 py-2 md:font-medium bg-green-500 hover:bg-green-300 text-white px-2 font-normal">Create Admin</a>
                     </span>      
                 }
                 <span>
-                    <a href="javascript:document.getElementById('logoutForm').submit()"  class="bg-red-500 hover:bg-red-300 p-2 text-white align-center rounded-sm font-bold">Log out</a>
+                    <a href="javascript:document.getElementById('logoutForm').submit()"  class="bg-red-500 hover:bg-red-300 md:font-medium rounded-full md:px-6 py-2 text-white font-normal">Log out</a>
                 </span>
             </li>
         </ul>
     </form>
 }
 else{
-    <ul class="flex space-x-3 pr-5">
+    <ul class="flex space-x-3 pr-5 font-mont">
         @*<li>@Html.ActionLink("Sign Up", "Register", "Account", routeValues:null, htmlAttributes: new {id = "registerLink"})</li>*@
         <li>
-            <a class="" id="regiseredLink" asp-controller="Account" asp-action="Register">Register</a>
+            <a class="md:font-medium font-normal" id="regiseredLink" asp-controller="Account" asp-action="Register">Register</a>
         </li>
         @*<li>@Html.ActionLink("Sign In", "Login", "Account", routeValues:null, htmlAttributes: new {id = "loginLink"})</li>*@
          <li>
-            <a class="" id="loginLink" asp-controller="Account" asp-action="Login">Login</a>
+            <a class="md:font-medium font-normal" id="loginLink" asp-controller="Account" asp-action="Login">Login</a>
         </li>
     </ul>
 }

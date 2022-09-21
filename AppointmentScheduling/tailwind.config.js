@@ -50,6 +50,10 @@ module.exports = {
               backdropOut: 'ease-in duration-200',
               modalIn: 'ease-out duration-300',
               modalOut: 'ease-in duration-200',
+          },
+          fontFamily: {
+              'league': ['"League Spartan"', 'sans-serif'],
+              'mont': ['Montserrat', 'sans-serif']
           }
       },
   },

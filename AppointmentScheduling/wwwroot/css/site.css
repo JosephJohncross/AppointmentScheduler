@@ -1,14 +1,14 @@
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-a.navbar-brand {
+/*a.navbar-brand {
     white-space: normal;
     text-align: center;
     word-break: break-all;
-}
+}*/
 
 /* Provide sufficient contrast against white background */
-a {
+/*a {
     color: #0366d6;
 }
 
@@ -22,11 +22,11 @@ a {
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
-}
+}*/
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
+/*html {
     font-size: 14px;
 }
 
@@ -51,18 +51,18 @@ html {
 button.accept-policy {
     font-size: 1rem;
     line-height: inherit;
-}
+}*/
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
+/*html {
     position: relative;
     min-height: 100%;
 }
 
-body {
+body {*/
     /* Margin bottom by footer height */
-    margin-bottom: 60px;
+    /*margin-bottom: 60px;
 }
 
 .footer {
@@ -70,8 +70,8 @@ body {
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
-}
+    line-height: 60px;*/ /* Vertically center the text there */
+/*}
 
 .error {
     border: 1px solid red !important;
@@ -104,11 +104,11 @@ body {
 
 .select2-container {
     width: 100% !important
-}
+}*/
 
 
 /* The container */
-.radio-container {
+/*.radio-container {
     display: block;
     position: relative;
     padding-bottom: 15px;
@@ -118,16 +118,16 @@ body {
     -ms-user-select: none;
     user-select: none;
     font-weight: normal;
-}
+}*/
 
     /* Hide the browser's default radio button */
-    .radio-container input {
+    /*.radio-container input {
         opacity: 0;
         cursor: pointer;
-    }
+    }*/
 
 /* Create a custom radio button */
-.checkmark {
+/*.checkmark {
     position: absolute;
     top: 0;
     left: 0;
@@ -137,27 +137,27 @@ body {
     padding: 5px 15px 5px 15px;
     background-color: transparent;
     border-color: #162466;
-}
+}*/
 
 /* On mouse-over, add a grey background color */
-.radio-container:hover input ~ .checkmark {
+/*.radio-container:hover input ~ .checkmark {
     background-color: #ccc;
-}
+}*/
 
 /* When the radio button is checked, add a blue background */
-.radio-container input:checked ~ .checkmark {
+/*.radio-container input:checked ~ .checkmark {
     background-color: #162466;
     color: white;
-}
+}*/
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
-.checkmark:after {
+/*.checkmark:after {
     content: "";
     position: absolute;
     display: none;
-}
+}*/
 
 /* Show the indicator (dot/circle) when checked */
-.radio-container input:checked ~ .checkmark:after {
+/*.radio-container input:checked ~ .checkmark:after {
     display: block;
-}
+}*/

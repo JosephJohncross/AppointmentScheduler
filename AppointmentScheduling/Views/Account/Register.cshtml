@@ -1,60 +1,69 @@
 ﻿@model AppointmentScheduling.Models.ViewModels.RegisterViewModel
 
-<h2 class="text-2xl">Sign Up</h2>
+<section class="">
+    <div class=" max-w-lg mx-auto px-4 md:px-16 relative mt-16 mb-6 md:mt-20 md:mb-8 space-y-8 px-4 font-league">
+          @if (User.IsInRole(Helper.Admin)){
+                <h4 class="text-center md:text-left md:text-4xl md:text-2xl">Register an Admin Account</h4>
+           }
+          else{
+                <h4 class="md:text-4xl md:text-2xl">Create a new account</h4>
+          }
+        <div class="shadow-lg flex rounded-lgoverflow-hidden">
+            <div class="flex flex-col items-center md:w-1/2 w-full px-24">
+                <div id="loginForm" class="">
+                    <form method="post" asp-action="Register" asp-controller="Account" class="flex flex-col space-y-6 py-5">
 
-<form method="post" asp-action="Register" asp-controller="Account">
-    @if (User.IsInRole(Helper.Admin)){
-        <h4>Register an Admin Account</h4>
-    }
-    else{
-        <h4>Create a new account</h4>
-    }
-
-    <div asp-validation-summary="ModelOnly" class="text-red-500 my-2"></div>
-    <div class="">
-        <label class="" asp-for="Name"></label>
-        <div class="">
-            <input type="text" asp-for="Name" class="border-1 border-slate-500 px-1"/>
-            <span class="text-red-500" asp-validation-for="Name"></span>
+                    <div asp-validation-summary="ModelOnly" class="text-red-500 my-2"></div>
+                    <div class="">
+                        <label class="" asp-for="Name"></label>
+                        <div class="">
+                            <input type="text" asp-for="Name" class="border-1 border-slate-500 px-2 w-[200px]"/>
+                            <span class="text-red-500" asp-validation-for="Name"></span>
+                        </div>
+                    </div>
+                    <div class="">
+                        <label class="" asp-for="Email"></label>
+                        <div class="">
+                            <input type="text" asp-for="Email" class="border-1 border-slate-500 px-2 w-[200px]"/>
+                            <span class="text-red-500" asp-validation-for="Email"></span>
+                        </div>
+                    </div>
+                    <div class="">
+                        <label class="" asp-for="Password"></label>
+                        <div class="">
+                            <input type="password" asp-for="Password" class="border-1 border-slate-500 px-2 w-[200px]"/>
+                            <span class="text-red-500" asp-validation-for="Password"></span>
+                        </div>
+                    </div>
+                    <div class="">
+                        <label class="" asp-for="ConfirmPassword"></label>
+                        <div class="">  
+                            <input type="password" asp-for="ConfirmPassword" class="border-1 border-slate-500 px-2 w-[200px]"/>
+                            <span class="text-red-500" asp-validation-for="ConfirmPassword"></span>
+                        </div>
+                    </div>
+                    <div class="">
+                        <label class="" asp-for="RoleName"></label>
+                        <div class="">
+                            <select type="text" asp-for="RoleName" asp-items="@AppointmentScheduling.Utility.Helper.GetRolesForDropDown(User.IsInRole(Helper.Admin))" class="border-1 border-slate-500 px-2 py-2 w-[200px]">
+                            </select>
+                            <span class="text-red-500" asp-validation-for="RoleName"></span>
+                        </div>
+                    </div>
+                    <div class="bg-green-500 text-white p-2 max-w-max mt-3 hover:bg-green-700">
+                        <input type="submit" value="Register"/>
+                    </div>
+                    <p class="text-blue-500">
+                        <a asp-action="Login">Sign In</a>
+                    </p>
+                </form>
+                </div>
+            </div>
+            <div class="login-img hidden md:w-1/2 md:inline">
+            </div>
         </div>
     </div>
-    <div class="">
-        <label class="" asp-for="Email"></label>
-        <div class="">
-            <input type="text" asp-for="Email" class="border-1 border-slate-500 px-1"/>
-            <span class="text-red-500" asp-validation-for="Email"></span>
-        </div>
-    </div>
-    <div class="">
-        <label class="" asp-for="Password"></label>
-        <div class="">
-            <input type="text" asp-for="Password" class="border-1 border-slate-500 px-1"/>
-            <span class="text-red-500" asp-validation-for="Password"></span>
-        </div>
-    </div>
-    <div class="">
-        <label class="" asp-for="ConfirmPassword"></label>
-        <div class="">
-            <input type="text" asp-for="ConfirmPassword" class="border-1 border-slate-500 px-1"/>
-            <span class="text-red-500" asp-validation-for="ConfirmPassword"></span>
-        </div>
-    </div>
-    <div class="">
-        <label class="" asp-for="RoleName"></label>
-        <div class="">
-            <select type="text" asp-for="RoleName" asp-items="@AppointmentScheduling.Utility.Helper.GetRolesForDropDown(User.IsInRole(Helper.Admin))" class="border-1 border-slate-500">
-            </select>
-            <span class="text-red-500" asp-validation-for="RoleName"></span>
-        </div>
-    </div>
-    <div class="bg-green-500 text-white p-2 max-w-max mt-3">
-        <input type="submit" value="Register"/>
-    </div>
-    <p class="text-blue-500">
-        <a asp-action="Login">Sign In</a>
-    </p>
-</form>
-
+</section>
 @section Scripts {
     <partial name="_ValidationScriptsPartial"/>
 }

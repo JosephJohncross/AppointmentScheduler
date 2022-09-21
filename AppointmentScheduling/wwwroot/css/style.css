@@ -2,3 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+.hero{
+    background-image: url(/images/nurse.jpg);
+    background-position: center;
+    background-size:cover;
+}
+.large-container {
+    
+}
+.login-img {
+    background-image: url(/images/doc.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
