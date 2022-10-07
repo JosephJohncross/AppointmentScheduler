@@ -19,18 +19,26 @@
     <link rel="stylesheet" href="~/css/output.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/landing.css" asp-append-version="true" />
 </head>
-<body class="">
+<body class="w-screen overflow-x-hidden relative md:overflow-none">
+    <div id="mobileMenu" class="mobileMenu absolute top-0 left-0 w-full h-screen bg-white z-40 translate-x-[100%] transition-transform">
+          <partial name="_LoginPartial"/>
+    </div>
     <header class="shadow-lg sticky top-0 bg-white z-30">
-        <nav class="flex justify-between px-4 py-3 md:px-10 font-mont">
+        <nav class="flex justify-between px-4 py-3 md:px-10 font-mont w-full">
             <div class="flex space-x-3 items-center">
                 <a asp-action="Index" asp-controller="Home">
                     <i class="fa-brands fa-phoenix-squadron"></i>
                 </a>
                 <h1><a class="font-bold" asp-controller="Appointment" asp-action="Index">Appointments</a></h1>
             </div>
-                <div class="">
-                    <partial name="_LoginPartial"/>
-                </div>
+            <div class="hidden md:block">
+                <partial name="_LoginPartial"/>
+            </div>
+            <div class="flex flex-col justify-center space-y-1 md:hidden md:z-[5]" id="navBtn" onclick="navToggler()">
+                <span class="w-6 bg-black h-1 block"></span>
+                <span class="w-6 bg-black h-1 block"></span>
+                <span class="w-6 bg-black h-1 block"></span>
+            </div>
         </nav>
     </header>
     <div class="">

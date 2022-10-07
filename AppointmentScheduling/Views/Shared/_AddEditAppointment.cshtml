@@ -2,7 +2,7 @@
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-<div class="hidden" id="appointmentInput" role="dialog" data="">
+<div class="hidden font-league" id="appointmentInput" role="dialog" data="">
     <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
       <div id="backdrop" class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
@@ -10,7 +10,7 @@
         <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <div class="relative overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
             <form class="" id="appointmentForm">
-                <div id="modal-header" class="bg-white px-4 pt-5 pb-6 sm:p-6 sm:pb-10">
+                <div id="modal-header" class="bg-white px-5 pt-5 md:px-4 md:pt-5 pb-6 sm:p-6 sm:pb-10">
                             @if (User.IsInRole(Helper.Admin))
                             {
                                 <h4 class="text-xl text-center text-green-500 font-bold mb-4 ">Add/Edit Appointment</h4>

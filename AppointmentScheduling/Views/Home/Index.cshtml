@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="bg-[#fffff1]">
+<div class="bg-[#fffff1] overflow-x-hidden">
     <section class="hero h-screen mb-10">
     <div class="max-w-[1500px] mx-auto px-4 md:px-16 relative">
         <div class="flex flex-col space-y-8 w-full pb-20 pt-32   md:absolute md:top-[50%] -md:translate-y-[50%] md:left-[0] md:px-16">
@@ -18,19 +18,63 @@
         </div>
     </div>
 </section>
-    <section class="">
-    <div class="large-container px-4 md:px-16 relative">
-        <div class="flex flex-col items-center md:flex-row space-y-8 md:space-y-0 md:space-x-5-6x">
+ 
+<section class="mb-20">
+    <div class="px-4 relative">
+        <div class="md:px-10 lg:px-24 flex flex-col items-center md:flex-row space-y-8 md:space-y-0 md:space-x-5">
             <div id="left-about" class="md:w-1/2 flex md:pr-8">
                 <div class="w-full">
-                    <p class="text-2xl md:text-left font-mont font-bold mb-6">All appointments coordinated in one place</p>    
-                    <div class="font-league">
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,  ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
+                    <p class="text-3xl text-green-500 md:text-left font-mont font-bold mb-6">All appointments coordinated in one place</p>    
+                    <div class="text-lg font-league max-w-[500px]">
+                        Never ask “what time works for you?” again.
+                        Manage your appointments, all in one place, without the need for manual paperwork and record keeping.
+                        <br/>
+                        Reliability and Quick access are the core value we seek to achieve on this platform
                     </div>    
                 </div>
             </div>
             <div id="right-about"  class="md:w-1/2 flex items-center justify-center">
                 <img src="~/images/hero.jpg"/>    
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="how" class="bg-gradient-to-r from-[#00ACB1] to-aqua-500 py-10">
+    <div class="text-3xl text-center text-green-500 md:text-left font-mont font-bold">How it Works</div>
+    <div class="how-container">
+        <div class="flex flex-col md:flex-row md:flex-wrap md:justify-between w-full">
+            <div class="flex flex-col items-center space-y-7 md:space-y-0 md:flex-row w-full md:w-[45%] shadow-lg px-4 md:py-10 md:space-x-4 mb-5 md:mb-10 py-5">
+                <div id="left" class="w-full md:w-1/2">
+                      <p>Patient or doctor registers a new account or login to an already existing account</p>
+                </div>
+                <div id="right" class="w-full md:w-1/2">
+                    <img src="~/images/step1.svg" alt="user"/>
+                </div>
+            </div>
+            <div class="flex flex-col items-center space-y-7 md:space-y-0 md:flex-row w-full md:w-[45%] shadow-lg px-4 md:py-10 md:space-x-4 mb-5 md:mb-10 py-5">
+                <div id="left" class="w-full md:w-1/2">
+                      <p>An authorized staff then books an appointment based on the doctors schedule for both patient and doctor</p>
+                </div>
+                <div id="right" class="w-full md:w-1/2">
+                    <img src="~/images/step4.svg" alt=""/>
+                </div>
+            </div>
+            <div class="flex flex-col items-center space-y-7 md:space-y-0 md:flex-row w-full md:w-[45%] shadow-lg px-4 md:py-10 md:space-x-4 mb-5 md:mb-10 py-5">
+                <div id="left" class="w-full md:w-1/2">
+                      <p>Doctor can then confirm or terminate an appointment</p>
+                </div>
+                <div id="right" class="w-full md:w-1/2">
+                    <img src="~/images/step3.svg" alt="user"/>
+                </div>
+            </div>
+            <div class="flex flex-col items-center space-y-7 md:space-y-0 md:flex-row w-full md:w-[45%] shadow-lg px-4 md:py-10 md:space-x-4 mb-5 md:mb-10 py-5">
+                <div id="left" class="w-full md:w-1/2">
+                      <p>Patient or doctors can then view Approved or pending appointments</p>
+                </div>
+                <div id="right" class="w-full md:w-1/2">
+                    <img src="~/images/step2.svg" alt=""/>
+                </div>
             </div>
         </div>
     </div>

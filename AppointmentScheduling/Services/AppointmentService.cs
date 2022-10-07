@@ -64,8 +64,8 @@ namespace AppointmentScheduling.Services
                     AdminId = model.AdminId,
                 };
                  
-                await _emailSender.SendEmailAsync(doctor.Email, "Appointment Created successfully", $"Your appointment with {patient.Name} is created and is in pending");
-                await _emailSender.SendEmailAsync(patient.Email, "Appointment Created successfully", $"Your appointment with {doctor.Name} is created and is in pending");
+                //await _emailSender.SendEmailAsync(doctor.Email, "Appointment Created successfully", $"Your appointment with {patient.Name} is created and is in pending");
+                //await _emailSender.SendEmailAsync(patient.Email, "Appointment Created successfully", $"Your appointment with {doctor.Name} is created and is in pending");
 
                 try
                 {

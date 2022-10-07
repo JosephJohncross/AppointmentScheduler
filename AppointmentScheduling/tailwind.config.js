@@ -54,7 +54,7 @@ module.exports = {
           fontFamily: {
               'league': ['"League Spartan"', 'sans-serif'],
               'mont': ['Montserrat', 'sans-serif']
-          }
+          },
       },
   },
   plugins: [],

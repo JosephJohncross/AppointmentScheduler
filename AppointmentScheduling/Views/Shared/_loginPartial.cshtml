@@ -1,27 +1,51 @@
 ﻿@inject SignInManager<ApplicationUser> signInManager
 
+<div class="absolute right-[7%] top-[7%] flex-col justify-center md:hidden z-40 md:z-[5]" id="navBtn" onclick="navToggler()">
+    <span class="w-8 bg-black h-1 block rotate-45"></span>
+    <span class="w-8 bg-black h-1 block -rotate-45"></span>
+</div>
 @if (signInManager.IsSignedIn(User)){
-    <form id="logoutForm" asp-action="Logoff" asp-controller="Account" class="w-full font-mont">
-        <ul class="flex p-3 justify-between space-x-4 ">
-            <li>Hello,
-                <span class="font-bold">@Convert.ToString(@User.Identity.Name)</span>
-            </li>
-            <li class="flex space-x-6">
-                @if (User.IsInRole(Helper.Admin))
-                {
+    <div class="">
+        <form id="logoutForm" asp-action="Logoff" asp-controller="Account" class="w-full font-mont">
+            <ul class="flex flex-col z-40 md:flex-row md:z-[1] md:p-3 md:justify-between md:space-x-4 hidden md:block">
+                <li>Hello,
+                    <span class="font-bold">@Convert.ToString(@User.Identity.Name)</span>
+                </li>
+                <li class="flex space-x-6">
+                    @if (User.IsInRole(Helper.Admin))
+                    {
+                        <span>
+                            <a asp-controller="Account" asp-action="Register"  class="rounded-full md:px-6 py-2 md:font-medium bg-green-500 hover:bg-green-300 text-white px-2 font-normal">Create Admin</a>
+                        </span>      
+                    }
                     <span>
-                        <a asp-controller="Account" asp-action="Register"  class="rounded-full md:px-6 py-2 md:font-medium bg-green-500 hover:bg-green-300 text-white px-2 font-normal">Create Admin</a>
-                    </span>      
-                }
-                <span>
-                    <a href="javascript:document.getElementById('logoutForm').submit()"  class="bg-red-500 hover:bg-red-300 md:font-medium rounded-full md:px-6 py-2 text-white font-normal">Log out</a>
-                </span>
-            </li>
-        </ul>
-    </form>
+                        <a href="javascript:document.getElementById('logoutForm').submit()"  class="bg-red-500 hover:bg-red-300 md:font-medium rounded-full md:px-6 py-2 text-white font-normal">Log out</a>
+                    </span>
+                </li>
+            </ul>
+
+            <ul class="flex flex-col z-40 md:hidden z-40 h-screen">
+                <li class="absolute top-10 left-10">Hello,
+                    <span class="font-bold text-green-500">@Convert.ToString(@User.Identity.Name)</span>
+                </li>
+                <li class="flex flex-col space-y-6 justify-center items-center h-screen">
+                    @if (User.IsInRole(Helper.Admin))
+                    {
+                        <span>
+                            <a asp-controller="Account" asp-action="Register"  class=" text-xl font-medium">Create Admin</a>
+                        </span>      
+                    }
+                    <span>
+                        <a href="javascript:document.getElementById('logoutForm').submit()"  class=" text-xl font-medium">Log out</a>
+                    </span>
+                </li>
+            </ul>
+        </form>
+    </div>
 }
 else{
-    <ul class="flex space-x-3 pr-5 font-mont">
+    <div class="hidden md:block">
+        <ul class="flex space-x-3 pr-5 font-mont">
         @*<li>@Html.ActionLink("Sign Up", "Register", "Account", routeValues:null, htmlAttributes: new {id = "registerLink"})</li>*@
         <li>
             <a class="md:font-medium font-normal" id="regiseredLink" asp-controller="Account" asp-action="Register">Register</a>
@@ -31,4 +55,17 @@ else{
             <a class="md:font-medium font-normal" id="loginLink" asp-controller="Account" asp-action="Login">Login</a>
         </li>
     </ul>
+    </div>
+    <div class="block md:hidden z-40 flex items-center justify-center border-2 h-full">
+        <ul class="flex flex-col space-y-8 space-x-3 pr-5 font-mont">
+        @*<li>@Html.ActionLink("Sign Up", "Register", "Account", routeValues:null, htmlAttributes: new {id = "registerLink"})</li>*@
+        <li>
+            <a class=" font-medium font-2xl md:font-medium md:font-xl" id="regiseredLink" asp-controller="Account" asp-action="Register">Register</a>
+        </li>
+        @*<li>@Html.ActionLink("Sign In", "Login", "Account", routeValues:null, htmlAttributes: new {id = "loginLink"})</li>*@
+         <li>
+            <a class="font-medium font-2xl md:font-medium md:font-xl " id="loginLink" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+    </ul>
+    </div>
 }

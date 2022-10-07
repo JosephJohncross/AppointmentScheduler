@@ -2,17 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-.hero{
-    background-image: url(/images/nurse.jpg);
-    background-position: center;
-    background-size:cover;
-}
-.large-container {
-    
-}
-.login-img {
-    background-image: url(/images/doc.jpg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+@layer utilities {
+    .hero {
+        background-image: url(/images/nurse.jpg);
+        background-position: center;
+        background-size: cover;
+    }
+
+    .large-container {
+    }
+
+    .login-img {
+        background-image: url(/images/doc.jpg);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .mobileMenu {
+        display: none;
+    }
+
+    .open {
+        transform: translateX(0);
+        display: block;
+    }
+
+    .how-container {
+        padding: 1.6rem;
+    }
+
+    @media screen and (min-width: 768px) {
+        .how-container {
+            padding: 2.5rem;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        .how-container {
+            padding: 9rem;
+        }
+    }
 }

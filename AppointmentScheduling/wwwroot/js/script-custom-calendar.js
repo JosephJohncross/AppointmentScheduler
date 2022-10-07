@@ -1,71 +1,137 @@
 ﻿
 var routeURL = location.protocol+"//"+location.host
 var calendar;
+
 document.addEventListener('DOMContentLoaded', function () {
     $("#appointmentDate").kendoDateTimePicker({
         value: new Date(),
         dateInput: false
     });
+ 
+        var winWidth = window.innerWidth;
+        if (winWidth >= 500) {
+            try {
 
-    try {
-
-        var calendarEl = document.getElementById('calendar');
-        if (calendarEl !== null) {
-            calendar = new FullCalendar.Calendar(calendarEl, {
-                timezone: false,
-                initialView: 'dayGridMonth',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
-                selectable: true,
-                editable: false,
-                select: function (event) {
-                    onShowModal(event, null)
-                },
-                eventDisplay:'block',
-                events: function (fetchInfo, successCallback, failureCallback) {
-                    $.ajax({
-                        url: `${routeURL}/api/Appointment/GetCalendarData?doctorId=` + $("#doctorId").val(),
-                        type: 'GET',
-                        dataType: 'JSON',
-                        success: function (response) {
-                            var events = [];
-                            if (response.status === 1) {
-                                $.each(response.dataenum, function (i, data) {
-                                    events.push({
-                                        title: data.title,
-                                        description: data.description,
-                                        start: data.startDate,
-                                        end: data.endDate,
-                                        backgroundColor: data.isDoctorApproved ? "#28a745" : "#dc3545",
-                                        //borderColor: "#162466",
-                                        textColor: "white",
-                                        //boxShadow: '0px 0px 2px rgba(0,0,0,0.3)',
-                                        id: data.id
-                                    })
-                                })  
-                            }
-                            successCallback(events);
+                var calendarEl = document.getElementById('calendar');
+                if (calendarEl !== null) {
+                    calendar = new FullCalendar.Calendar(calendarEl, {
+                        timezone: false,
+                        initialView: 'dayGridMonth',
+                        headerToolbar: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'dayGridMonth,timeGridWeek,timeGridDay'
                         },
-                        error: function (xhr) {
-                            $.notify('Error', 'error');
+                        selectable: true,
+                        editable: false,
+                        select: function (event) {
+                            onShowModal(event, null)
+                        },
+                        eventDisplay: 'block',
+                        events: function (fetchInfo, successCallback, failureCallback) {
+                            $.ajax({
+                                url: `${routeURL}/api/Appointment/GetCalendarData?doctorId=` + $("#doctorId").val(),
+                                type: 'GET',
+                                dataType: 'JSON',
+                                success: function (response) {
+                                    var events = [];
+                                    if (response.status === 1) {
+                                        $.each(response.dataenum, function (i, data) {
+                                            events.push({
+                                                title: data.title,
+                                                description: data.description,
+                                                start: data.startDate,
+                                                end: data.endDate,
+                                                backgroundColor: data.isDoctorApproved ? "#28a745" : "#dc3545",
+                                                //borderColor: "#162466",
+                                                textColor: "white",
+                                                //boxShadow: '0px 0px 2px rgba(0,0,0,0.3)',
+                                                id: data.id
+                                            })
+                                        })
+                                    }
+                                    successCallback(events);
+                                },
+                                error: function (xhr) {
+                                    $.notify('Error', 'error');
+                                }
+                            })
+                        },
+                        eventClick: function (info) {
+                            console.log("Test true")
+                            console.log(info)
+                            getEventDetailsByEventId(info.event);
                         }
                     })
-                },
-                eventClick: function (info) {
-                    console.log("Test true")
-                    console.log(info)
-                    getEventDetailsByEventId(info.event);
+                    calendar.render();
                 }
-            })
-            calendar.render();
+            }
+            catch (e) {
+                alert(e);
+            }
         }
-    }
-    catch (e) {
-        alert(e);
-    }
+        else {
+            try {
+
+                var calendarEl = document.getElementById('calendar');
+                if (calendarEl !== null) {
+                    calendar = new FullCalendar.Calendar(calendarEl, {
+                        timezone: false,
+                        height: 'auto',
+                        initialView: 'listWeek',
+                        headerToolbar: {
+                            left: 'prev,next',
+                            right: 'listMonth,timeGridWeek,timeGridDay'
+                        },
+                        selectable: true,
+                        editable: false,
+                        select: function (event) {
+                            onShowModal(event, null)
+                        },
+                        eventDisplay: 'block',
+                        events: function (fetchInfo, successCallback, failureCallback) {
+                            $.ajax({
+                                url: `${routeURL}/api/Appointment/GetCalendarData?doctorId=` + $("#doctorId").val(),
+                                type: 'GET',
+                                dataType: 'JSON',
+                                success: function (response) {
+                                    var events = [];
+                                    if (response.status === 1) {
+                                        $.each(response.dataenum, function (i, data) {
+                                            events.push({
+                                                title: data.title,
+                                                description: data.description,
+                                                start: data.startDate,
+                                                end: data.endDate,
+                                                backgroundColor: data.isDoctorApproved ? "#28a745" : "#dc3545",
+                                                //borderColor: "#162466",
+                                                textColor: "white",
+                                                //boxShadow: '0px 0px 2px rgba(0,0,0,0.3)',
+                                                id: data.id
+                                            })
+                                        })
+                                    }
+                                    successCallback(events);
+                                },
+                                error: function (xhr) {
+                                    $.notify('Error', 'error');
+                                }
+                            })
+                        },
+                        eventClick: function (info) {
+                            console.log("Test true")
+                            console.log(info)
+                            getEventDetailsByEventId(info.event);
+                        }
+                    })
+                    calendar.render();
+                }
+            }
+            catch (e) {
+                alert(e);
+            }
+        }
+
 })
 
 var modalClose = document.getElementById('modal-close');
@@ -263,4 +329,9 @@ function onConfirm() {
             $.notify('Error', 'error');
         }
     })
+}
+
+function navToggler() {
+    var mobileMenu = document.getElementById("mobileMenu");
+    mobileMenu.classList.toggle('open');
 }
